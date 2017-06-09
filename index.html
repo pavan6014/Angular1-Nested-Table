@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+  <head>
+    <link data-require="font-awesome@*" data-semver="4.5.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
+    <script src="example.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div ng-controller="DemoCtrl">
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>#ID</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat-start="row in data">
+            <td>
+              <span ng-click="row.isCollapsed = !row.isCollapsed" ng-class="{'fa fa-plus fa-fw': !row.isCollapsed, 'fa fa-minus fa-fw': row.isCollapsed}"></span>
+            </td>
+            <td> {{row.region}}</td>
+          </tr>
+          <tr uib-collapse="!row.isCollapsed" ng-repeat-start="child in row.closedYesterdays">
+            <td>
+               <div class="col-md-11 col-md-offset-1"><span ng-click="child.isCollapsed = !child.isCollapsed" ng-class="{'fa fa-plus fa-fw': !child.isCollapsed, 'fa fa-minus fa-fw': child.isCollapsed}"></span></div>
+            </td>
+            <td> {{child.closed}} </td>
+          </tr>
+          <tr uib-collapse="!child.isCollapsed" ng-repeat-end ng-repeat="grandchild in child.closedYesterdaySubsets">
+            <td></td>
+            <td>{{grandchild.closed}}</td>
+          </tr>
+          <tr ng-repeat-end></tr>
+        </tbody>
+      </table>
+      
+      
+    </div>
+    
+    <h3>How Should I display the grandchildren in this table?</h3>
+    
+    
+  </body>
+
+</html>
